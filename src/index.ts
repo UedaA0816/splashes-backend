@@ -3,7 +3,7 @@ import express, { Express, Request, Response, Router } from 'express'
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 import { logger } from "./logger";
 
-import { upload_task } from "./tasks/upload_task"
+import { get_photos_task, put_photo_task, delete_photo_task } from "./tasks/photo_task"
 
 const app: Express = express()
 
@@ -28,7 +28,11 @@ app.use(express.urlencoded({
 // GetとPostのルーティング
 const router: Router = express.Router()
 
-router.post('/upload', upload_task)
+router.get("/photos", get_photos_task)
+
+router.put('/photo', put_photo_task)
+
+router.delete('/photo', delete_photo_task)
 
 app.use(router)
 
