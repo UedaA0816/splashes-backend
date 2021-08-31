@@ -38,7 +38,7 @@ export const get_photos_task = async (req:Request, res:Response) => {
     code:20000,
     data:photos
   }
-  logger.debug("get_photos_task:Success",{response})
+  logger.debug("get_photos_task:Success",JSON.stringify({response}))
   res.send(response)
 }
 
@@ -88,7 +88,7 @@ export const put_photo_task = async (req:Request, res:Response) => {
     code:20000,
     data:gotPhoto
   }
-  logger.debug("put_photo_task:Success",{response})
+  logger.debug("put_photo_task:Success",JSON.stringify({response}))
   res.send(response)
 }
 
@@ -142,6 +142,6 @@ export const delete_photo_task = async (req:Request, res:Response) => {
     code:20000,
     data:currentPhoto
   }
-  logger.debug("delete_photo_task:Success",{response})
+  logger.debug("delete_photo_task:Success",JSON.stringify({response}))
   res.send(response)
 }
