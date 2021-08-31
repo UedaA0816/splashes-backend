@@ -1,9 +1,9 @@
+import { ObjectId } from "mongodb"
+
 export type Photo = {
-  _id:string,
-  label:string,
-  photo_url:string,
-  create_at?:Date
+  _id?: ObjectId,
+  user_id: string,
+  label: string,
+  photo_uri: string,
+  created_at: Date
 }
-
-export type Photos = Photo[]
-

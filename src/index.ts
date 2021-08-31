@@ -1,7 +1,8 @@
-import express, { Express, Request, Response, Router } from 'express'
-
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 import { logger } from "./logger";
+
+import express, { Express, Request, Response, Router } from 'express'
+import * as mongodb from './mongodb'
 
 import { get_photos_task, put_photo_task, delete_photo_task } from "./tasks/photo_task"
 
@@ -17,13 +18,8 @@ app.use((req, res, next) => {
 })
 
 // body-parserに基づいた着信リクエストの解析
-app.use(express.json({ type: 'application/*+json' }));
+app.use(express.json());
 
-// parse application/x-www-form-urlencoded 
-app.use(express.urlencoded({
-  extended: false,
-  type: 'application/x-www-form-urlencoded'
-}));
 
 // GetとPostのルーティング
 const router: Router = express.Router()
@@ -36,5 +32,7 @@ router.delete('/photo', delete_photo_task)
 
 app.use(router)
 
-// 3000番ポートでAPIサーバ起動
-app.listen(port,()=> logger.info(`Example app listening on port ${port}!`) )
+mongodb.connect().then(()=>{
+  // 3000番ポートでAPIサーバ起動
+  app.listen(port,()=> logger.info(`Example app listening on port ${port}!`) )
+})
