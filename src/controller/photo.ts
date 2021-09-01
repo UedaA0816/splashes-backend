@@ -8,8 +8,11 @@ export type getPhotosParam = {label?:string,user_id:string}
 export async function getPhotos(conditions:getPhotosParam) {
 
   const photos = await mongodb.collections.photos
-  logger.debug(conditions)
-  return photos?.find({...conditions}).toArray()
+  
+  const {user_id,label} = conditions
+  const param = label ? {user_id,label:{$regex:label}} : {user_id}
+  logger.debug({...param})
+  return photos?.find({...param}).toArray()
 }
 
 export async function getIdPhoto(_id:ObjectId) {
